@@ -1,6 +1,6 @@
 const express = require('express');
 
-const UsuarioServicio = require('../services/usuarioService.js')
+const UsuarioServicio = require('../api/services/usuarioService.js')
 const routerUsuarios = express.Router();
 const service = new UsuarioServicio();
 
