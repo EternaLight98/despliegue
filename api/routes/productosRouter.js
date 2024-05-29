@@ -1,20 +1,20 @@
 const express = require('express');
 
-const ProductoServicio = require('../api/services/productoService.js')
-const validatorHandler = require('../api/middlewares/validatorHandler.js')
-const {crearProductoEsquema, actualizarProductoEsquema, verProductoEsquema} = require('../api/schemas/productoEsquema.js')
+const ProductoServicio = require('../services/productoService.js')
+const validatorHandler = require('../middlewares/validatorHandler.js')
+const {crearProductoEsquema, actualizarProductoEsquema, verProductoEsquema} = require('../schemas/productoEsquema.js')
 
 const routerProductos = express.Router();
 const service = new ProductoServicio();
 
 
-routerProductos.get('/api/', async (req, res) =>  {
+routerProductos.get('/', async (req, res) =>  {
     const productos = await service.buscar();
     res.json(productos);
 });
 
 // funcion especifica
-routerProductos.get('/api/productos/filtro', (req, res) => {
+routerProductos.get('/productos/filtro', (req, res) => {
     res.send('El filtro')
 })
 
@@ -22,7 +22,7 @@ routerProductos.get('/api/productos/filtro', (req, res) => {
 DE EMPOINTS*/
 
   // fincion dinamica
-routerProductos.get('/api/:id',
+routerProductos.get('/:id',
   validatorHandler(verProductoEsquema, 'params'),
     async (req, res, next) => {
       try {
@@ -35,7 +35,7 @@ routerProductos.get('/api/:id',
 });
 
 
-routerProductos.post('/api/',
+routerProductos.post('/',
   validatorHandler(crearProductoEsquema, 'body'),
     async (req, res) =>{
       const body = req.body;
@@ -44,7 +44,7 @@ routerProductos.post('/api/',
 });
 
 
-routerProductos.patch('/api/:id',
+routerProductos.patch('/:id',
 validatorHandler(verProductoEsquema, 'params'),
   validatorHandler(actualizarProductoEsquema, 'body'),
     async (req, res, next) =>{
@@ -59,7 +59,7 @@ validatorHandler(verProductoEsquema, 'params'),
 });
 
 
-routerProductos.delete('/api/:id', async (req, res) =>{
+routerProductos.delete('/:id', async (req, res) =>{
   try {
     const { id } = req.params;
     const rta = await service.eliminar(id);

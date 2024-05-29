@@ -1,6 +1,6 @@
 const express = require('express');
 
-const CategoriaServicio = require('../api/services/categoriaService.js')
+const CategoriaServicio = require('../services/categoriaService.js')
 const routerCategorias = express.Router();
 const service = new CategoriaServicio;
 
